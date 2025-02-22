@@ -1,11 +1,11 @@
 const CACHE_NAME = 'crisfit-pwa-cache-v1';
 const urlsToCache = [
-  './index.html',
-  './dashboard.html',
-  './styles.css',
-  './script.js',
-  './icon-192x192.png',
-  './icon-512x512.png'
+  'index.html',
+  'dashboard.html',
+  'styles.css',
+  'script.js',
+  'icon-192x192.png',
+  'icon-512x512.png'
 ];
 
 // Install Service Worker and cache files
