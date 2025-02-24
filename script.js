@@ -135,5 +135,33 @@ if (document.getElementById('routine-container')) {
         // Si no hay email guardado, redirigir a la página de inicio de sesión
         window.location.href = "index.html";
     }
+    // Mostrar ejercicios al hacer clic en el botón
+    document.getElementById('show-exercises-btn').addEventListener('click', function() {
+        var exerciseContainer = document.getElementById('exercise-container');
+        if (exerciseContainer.style.display === 'none') {
+            exerciseContainer.style.display = 'block';
+            var url = `https://script.google.com/macros/s/AKfycbywGHo05PPEGAKRZPBV18u1vLrf6tcdLtYafhvw_tSktBaHExEjHyH2kUtgjL7gdNI0RA/exec?type=exercises`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(function(exercise) {
+                        var div = document.createElement('div');
+                        div.classList.add('exercise-item');
+                        div.innerHTML = `
+                            <h3>${exercise.Ejercicio}</h3>
+                            <img src="${exercise.GIF}" alt="${exercise.Ejercicio}" />
+                        `;
+                        exerciseContainer.appendChild(div);
+                    });
+                })
+                .catch(error => console.error("Error al cargar los ejercicios", error));
+        } else {
+            exerciseContainer.style.display = 'none';
+        }
+    });
+
+
+
 }
 
