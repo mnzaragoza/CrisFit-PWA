@@ -77,53 +77,64 @@ button[type="submit"]:hover {
     box-shadow: 0 6px 15px rgba(52, 152, 219, 0.5);
 }
 
-/* Modal */
-.hidden { display: none; }
-
-.modal { 
-    position: fixed; 
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 100%; 
-    background: rgba(0,0,0,0.7); /* Fondo semitransparente */
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    z-index: 1000;
-}
-
-.modal-content { 
-    background: white; 
-    padding: 20px; 
-    border-radius: 10px; 
-    max-width: 90%; 
-    max-height: 80vh;
-    overflow: hidden;
-    text-align: center;
-}
-
-.modal iframe {
-    width: 100%;  /* El iframe ocupará el 100% del ancho */
-    height: 100%;
-    max-height: 60vh; /* Limitar la altura máxima en pantallas más pequeñas */
-}
-
-.close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-    font-size: 24px;
-    color: #fff;
-    background-color: #ff0000;
+/* Botón de 'Como se hacen' centrado */
+#btnEjercicios {
+    display: block;
+    margin: 30px auto;
+    padding: 12px 25px;
+    border-radius: 30px;
+    background-color: #1E2A47;
+    color: white;
     border: none;
-    border-radius: 50%;
-    padding: 10px;
+    cursor: pointer;
+    font-size: 1.1em;
+    text-transform: uppercase;
+    box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+    transition: all 0.3s ease;
 }
 
-.close:hover {
-    background-color: #cc0000;
+#btnEjercicios:hover {
+    background-color: #3498db;
+}
+
+/* Listado de ejercicios sin puntos y subrayado */
+#ejerciciosContainer {
+    list-style-type: none;  /* Elimina los puntos de la lista */
+    padding: 0;
+    margin: 0;
+}
+
+#ejerciciosContainer li {
+    font-size: 1.2em;
+    color: #1E2A47; /* Color similar al de los ejercicios */
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#ejerciciosContainer li:hover {
+    color: #3498db;
+    text-decoration: underline; /* Solo subraya al pasar el mouse */
+}
+
+/* Estilo del botón de cerrar del modal */
+#closeModal {
+    padding: 10px 20px;
+    border-radius: 30px;
+    background-color: #ff4747;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1em;
+    text-transform: uppercase;
+    box-shadow: 0 4px 10px rgba(255, 71, 71, 0.3);
+    transition: all 0.3s ease;
+}
+
+#closeModal:hover {
+    background-color: #e63946;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(255, 71, 71, 0.5);
 }
 
 /* Contenedor del Dashboard */
@@ -187,54 +198,6 @@ a.logout-btn:hover {
     box-shadow: 0 6px 15px rgba(52, 152, 219, 0.5);
 }
 
-/* Botón de Ejercicios */
-#btnEjercicios {
-    display: inline-block;
-    margin-top: 30px;
-    padding: 12px 25px;
-    border-radius: 30px;
-    background-color: #1E2A47;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 1.2em;
-    text-transform: uppercase;
-    box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
-    transition: all 0.3s ease;
-}
-
-#btnEjercicios:hover {
-    background-color: #3498db;
-}
-
-/* Contenedor de Ejercicios */
-#listaEjercicios {
-    margin-top: 20px;
-    padding: 0;
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-#listaEjercicios li {
-    background-color: #fff;
-    padding: 12px 25px;
-    margin: 10px 0;
-    border-radius: 30px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    width: 80%;
-    text-align: center;
-    cursor: pointer;
-    font-size: 1.1em;
-    transition: all 0.3s ease;
-}
-
-#listaEjercicios li:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(52, 152, 219, 0.5);
-}
-
 /* Responsive para móviles */
 @media (max-width: 768px) {
     header h1 {
@@ -256,4 +219,5 @@ a.logout-btn:hover {
         max-width: 95%; /* El modal ocupa el 95% del ancho */
     }
 }
+
 
