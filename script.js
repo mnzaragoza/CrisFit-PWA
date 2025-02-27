@@ -1,4 +1,4 @@
-Registrar el Service Worker
+//Registrar el Service Worker
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('service-worker.js')
     .then(function(reg) {
