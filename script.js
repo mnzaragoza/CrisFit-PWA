@@ -149,6 +149,8 @@ if (document.getElementById('routine-container')) {
             return response.json();  // Obtener los datos en formato JSON
         })
         .then(function(data) {
+
+            console.log("datos recibidos" + data);
             ejerciciosContainer.innerHTML = "";  // Limpiar el contenedor
 
             // Crear los elementos para mostrar los ejercicios
