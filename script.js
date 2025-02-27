@@ -140,8 +140,7 @@ if (document.getElementById('routine-container')) {
     document.getElementById("btnEjercicios").addEventListener("click", function() {
         const ejerciciosContainer = document.getElementById("ejerciciosContainer");
         ejerciciosContainer.innerHTML = "Cargando...";  // Mostrar mensaje mientras se cargan los datos
-
-        fetch("https://script.google.com/macros/s/AKfycbywGHo05PPEGAKRZPBV18u1vLrf6tcdLtYafhvw_tSktBaHExEjHyH2kUtgjL7gdNI0RA/exec?tipo=ejerciciosGif")
+        fetch(`https://script.google.com/macros/s/AKfycbywGHo05PPEGAKRZPBV18u1vLrf6tcdLtYafhvw_tSktBaHExEjHyH2kUtgjL7gdNI0RA/exec?tipo=ejerciciosGif`)
         .then(function(response) {
             console.log("que devuelve el servidor" + response.text());  // Verifica qué devuelve el servidor
             return response.json();  // Obtener los datos en formato JSON
