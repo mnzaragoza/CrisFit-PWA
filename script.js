@@ -143,37 +143,36 @@ if (document.getElementById('routine-container')) {
     document.getElementById("btnEjercicios").addEventListener("click", function() {
         const ejerciciosContainer = document.getElementById("ejerciciosContainer");
         ejerciciosContainer.innerHTML = "Cargando...";  // Mostrar mensaje mientras se cargan los datos
-        fetch(`https://script.google.com/macros/s/AKfycbywGHo05PPEGAKRZPBV18u1vLrf6tcdLtYafhvw_tSktBaHExEjHyH2kUtgjL7gdNI0RA/exec?tipo=ejerciciosGif`)
+        fetch("https://script.google.com/macros/s/AKfycbywGHo05PPEGAKRZPBV18u1vLrf6tcdLtYafhvw_tSktBaHExEjHyH2kUtgjL7gdNI0RA/exec?tipo=ejerciciosGif")
         .then(function(response) {
-            console.log("que devuelve el servidor" + response.text());  // Verifica qué devuelve el servidor
-            return response.json();  // Obtener los datos en formato JSON
+            if (!response.ok) throw new Error('Error en la respuesta del servidor');
+            return response.clone().json();  // 👈 Clonamos para evitar conflictos con otras lecturas
         })
         .then(function(data) {
+            if (!Array.isArray(data)) throw new Error('La respuesta no es un array');
+            console.log("Datos recibidos:", data); 
+            ejerciciosContainer.innerHTML = "";
 
-            console.log("datos recibidos" + data);
-            ejerciciosContainer.innerHTML = "";  // Limpiar el contenedor
-
-            // Crear los elementos para mostrar los ejercicios
             for (var i = 0; i < data.length; i++) {
                 var ejercicio = data[i];
                 var item = document.createElement("li");
-                item.textContent = ejercicio.nombre;  // Nombre del ejercicio
+                item.textContent = ejercicio.nombre;
 
-                // Capturar el valor de 'ejercicio.gif' en el momento de la creación del listener
-                item.addEventListener("click", function(ejercicio) {
-                    return function() {
-                        mostrarGif(ejercicio.gif);  // Mostrar el GIF cuando se hace clic
-                    };
-                }(ejercicio)); // Pasar el valor de ejercicio al listener
+                (function(gifUrl) {
+                    item.addEventListener("click", function() {
+                        mostrarGif(gifUrl);
+                    });
+                })(ejercicio.gif);
 
                 ejerciciosContainer.appendChild(item);
             }
 
-            document.getElementById("listaEjercicios").classList.toggle("hidden");  // Mostrar la lista de ejercicios
+            document.getElementById("listaEjercicios").classList.toggle("hidden");
         })
         .catch(function(error) {
-            console.log('Error al cargar los ejercicios:', error);
+            console.error('Error al cargar los ejercicios:', error);
         });
+
     });
 
     // Función que muestra el GIF cuando se hace clic en un ejercicio
