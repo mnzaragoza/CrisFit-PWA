@@ -135,46 +135,52 @@ if (document.getElementById('routine-container')) {
         // Si no hay email guardado, redirigir a la página de inicio de sesión
         window.location.href = "index.html";
     }
-   // Función para cargar los ejercicios cuando se hace clic en el botón "Como se hacen"
-document.getElementById("btnEjercicios").addEventListener("click", function() {
-    const ejerciciosContainer = document.getElementById("ejerciciosContainer");
-    ejerciciosContainer.innerHTML = "Cargando...";  // Mostrar mensaje mientras se cargan los datos
 
-    fetch("https://script.google.com/macros/s/AKfycbywGHo05PPEGAKRZPBV18u1vLrf6tcdLtYafhvw_tSktBaHExEjHyH2kUtgjL7gdNI0RA/exec?tipo=ejerciciosGif")
-    .then(function(response) {
-        return response.json();  // Obtener los datos en formato JSON
-    })
-    .then(function(data) {
-        ejerciciosContainer.innerHTML = "";  // Limpiar el contenedor
+    // Función para cargar los ejercicios cuando se hace clic en el botón "Como se hacen"
+    document.getElementById("btnEjercicios").addEventListener("click", function() {
+        const ejerciciosContainer = document.getElementById("ejerciciosContainer");
+        ejerciciosContainer.innerHTML = "Cargando...";  // Mostrar mensaje mientras se cargan los datos
 
-        // Crear los elementos para mostrar los ejercicios
-        for (var i = 0; i < data.length; i++) {
-            var ejercicio = data[i];
-            var item = document.createElement("li");
-            item.textContent = ejercicio.nombre;  // Nombre del ejercicio
+        fetch("https://script.google.com/macros/s/AKfycbywGHo05PPEGAKRZPBV18u1vLrf6tcdLtYafhvw_tSktBaHExEjHyH2kUtgjL7gdNI0RA/exec?tipo=ejerciciosGif")
+        .then(function(response) {
+            return response.json();  // Obtener los datos en formato JSON
+        })
+        .then(function(data) {
+            ejerciciosContainer.innerHTML = "";  // Limpiar el contenedor
 
-            item.addEventListener("click", function() {
-                mostrarGif(ejercicio.gif);  // Mostrar el GIF cuando se hace clic
-            });
-            ejerciciosContainer.appendChild(item);
-        }
+            // Crear los elementos para mostrar los ejercicios
+            for (var i = 0; i < data.length; i++) {
+                var ejercicio = data[i];
+                var item = document.createElement("li");
+                item.textContent = ejercicio.nombre;  // Nombre del ejercicio
 
-        document.getElementById("listaEjercicios").classList.toggle("hidden");  // Mostrar la lista de ejercicios
-    })
-    .catch(function(error) {
-        console.log('Error al cargar los ejercicios:', error);
+                // Capturar el valor de 'ejercicio.gif' en el momento de la creación del listener
+                item.addEventListener("click", function(ejercicio) {
+                    return function() {
+                        mostrarGif(ejercicio.gif);  // Mostrar el GIF cuando se hace clic
+                    };
+                }(ejercicio)); // Pasar el valor de ejercicio al listener
+
+                ejerciciosContainer.appendChild(item);
+            }
+
+            document.getElementById("listaEjercicios").classList.toggle("hidden");  // Mostrar la lista de ejercicios
+        })
+        .catch(function(error) {
+            console.log('Error al cargar los ejercicios:', error);
+        });
     });
-});
 
-// Función que muestra el GIF cuando se hace clic en un ejercicio
-function mostrarGif(url) {
-    document.getElementById("gifEjercicio").src = url;  // Establecer la URL del GIF
-    document.getElementById("gifModal").classList.remove("hidden");  // Mostrar el modal con el GIF
-}
+    // Función que muestra el GIF cuando se hace clic en un ejercicio
+    function mostrarGif(url) {
+        document.getElementById("gifEjercicio").src = url;  // Establecer la URL del GIF
+        document.getElementById("gifModal").classList.remove("hidden");  // Mostrar el modal con el GIF
+    }
 
-//funcion para cerrar el gif
+    // Función para cerrar el gif
     function cerrarModal() {
         document.getElementById("gifModal").classList.add("hidden");
     }
 }
+
 
