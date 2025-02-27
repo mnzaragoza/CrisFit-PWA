@@ -135,7 +135,7 @@ if (document.getElementById('routine-container')) {
         // Si no hay email guardado, redirigir a la página de inicio de sesión
         window.location.href = "index.html";
     }
-
+    // funcion para carga de ejercicios en btn como se hacen
     document.getElementById("btnEjercicios").addEventListener("click", async function() {
         const ejerciciosContainer = document.getElementById("ejerciciosContainer");
         ejerciciosContainer.innerHTML = "Cargando...";
@@ -153,12 +153,12 @@ if (document.getElementById('routine-container')) {
         
         document.getElementById("listaEjercicios").classList.toggle("hidden");
     });
-    
+     //funcion que muestra el gif cuando hagan clic en el ejercicio
     function mostrarGif(url) {
         document.getElementById("gifEjercicio").src = url;
         document.getElementById("gifModal").classList.remove("hidden");
     }
-    
+    //funcion para cerrar el gif
     function cerrarModal() {
         document.getElementById("gifModal").classList.add("hidden");
     }
