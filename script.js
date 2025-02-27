@@ -1,8 +1,12 @@
 // Registrar el Service Worker
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('service-worker.js')
-    .then(reg => console.log('Service Worker registrado correctamente', reg))
-    .catch(err => console.log('Error al registrar el Service Worker', err));
+    .then(function(reg) {
+        console.log('Service Worker registrado correctamente', reg);
+    })
+    .catch(function(err) {
+        console.log('Error al registrar el Service Worker', err);
+    });
 }
 
 // Función para manejar el formulario de login
@@ -29,7 +33,7 @@ function validateEmail(email) {
 
     // Hacer una solicitud HTTP GET a la URL
     fetch(url)
-        .then(function (response) {
+        .then(function(response) {
             // Verificar si la respuesta es correcta (código 200-299)
             if (response.ok) {
                 return response.json(); // Convertir la respuesta a formato JSON
@@ -37,7 +41,7 @@ function validateEmail(email) {
                 throw new Error('No se pudo validar el email'); // Si hay un error en la respuesta, lanzar una excepción
             }
         })
-        .then(function (data) {
+        .then(function(data) {
             console.log(data); // Imprimir en consola la respuesta del servidor (para depuración)
 
             if (data != undefined) { // Verifica que los datos existan
@@ -51,7 +55,7 @@ function validateEmail(email) {
                 alert('Usuario no encontrado');
             }
         })
-        .catch(function (error) {
+        .catch(function(error) {
             // Capturar errores y mostrar un mensaje al usuario
             alert('Error: ' + error.message);
         });
@@ -63,18 +67,18 @@ function loadRoutine(email) {
     var url = `https://script.google.com/macros/s/AKfycbywGHo05PPEGAKRZPBV18u1vLrf6tcdLtYafhvw_tSktBaHExEjHyH2kUtgjL7gdNI0RA/exec?email=${email}`;
     
     fetch(url)
-        .then(function (response) {
+        .then(function(response) {
             // Si la respuesta no es exitosa, lanzar un error
             if (!response.ok) {
                 throw new Error('No se pudieron cargar las rutinas');
             }
             return response.json(); // Convertir la respuesta a JSON
         })
-        .then(function (data) {
+        .then(function(data) {
             console.log("Datos recibidos:", data); // Mostrar los datos en la consola para depuración
             displayRoutine(data); // Llamar a la función para renderizar las rutinas en el HTML
         })
-        .catch(function (error) {
+        .catch(function(error) {
             // Capturar y mostrar errores en la consola y en un alert
             console.error("Error en loadRoutine:", error);
             alert('Error: ' + error.message);
@@ -116,7 +120,6 @@ function displayRoutine(data) {
         routineContainer.appendChild(exerciseElement);
     });
 }
-
 
 // Evento para manejar el login cuando el usuario envía el formulario (solo en index.html)
 if (document.getElementById('login-form')) {
@@ -182,5 +185,3 @@ if (document.getElementById('routine-container')) {
         document.getElementById("gifModal").classList.add("hidden");
     }
 }
-
-
