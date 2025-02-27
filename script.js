@@ -143,7 +143,7 @@ if (document.getElementById('routine-container')) {
     document.getElementById("btnEjercicios").addEventListener("click", function() {
         const ejerciciosContainer = document.getElementById("ejerciciosContainer");
         ejerciciosContainer.innerHTML = "Cargando...";  // Mostrar mensaje mientras se cargan los datos
-        fetch("https://script.google.com/macros/s/AKfycbywGHo05PPEGAKRZPBV18u1vLrf6tcdLtYafhvw_tSktBaHExEjHyH2kUtgjL7gdNI0RA/exec?tipo=ejerciciosGif")
+        fetch("https://script.google.com/macros/s/AKfycbywGHo05PPEGAKRZPBV18u1vLrf6tcdLtYafhvw_tSktBaHExEjHyH2kUtgjL7gdNI0RA/exec?tipo=G")
         .then(function(response) {
             if (!response.ok) throw new Error('Error en la respuesta del servidor');
             return response.clone().json();  //  Clonamos para evitar conflictos con otras lecturas
