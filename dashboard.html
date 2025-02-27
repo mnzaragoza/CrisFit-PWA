@@ -12,20 +12,24 @@
         <h1>Bienvenido a tu Rutina, <span id="user-name"></span></h1>
     </header>
     
-    <!-- Botón ejercicios como se hacen-->
-    <button id="btnEjercicios">COMO SE HACEN LOS EJERCICIOS</button>
+    <!-- Botón 'Como se hacen' -->
+    <div class="btn-container">
+        <button id="btnEjercicios">Como se hacen</button>
+    </div>
 
-    <!-- Sección oculta que mostrará la lista de ejercicios -->
+    <!-- Sección para los ejercicios -->
     <div id="listaEjercicios" class="hidden">
-        <ul id="ejerciciosContainer"></ul>
+        <div class="exercise-list-container">
+            <ul id="ejerciciosContainer"></ul>
+        </div>
     </div>
     
     <!-- Modal para mostrar el GIF -->
     <div id="gifModal" class="hidden">
-      <div id="modalContent">
-          <button id="closeModal" onclick="cerrarModal()">X</button>
-          <iframe id="gifEjercicio" width="100%" height="315" frameborder="0" allowfullscreen></iframe>
-      </div>
+        <div id="modalContent">
+            <button id="closeModal" onclick="cerrarModal()">Cerrar</button>
+            <iframe id="gifEjercicio" width="100%" height="315" frameborder="0" allowfullscreen></iframe>
+        </div>
     </div>
 
     <div class="dashboard-container">
@@ -38,12 +42,12 @@
     <script src="script.js"></script>
     <script>
         if ('serviceWorker' in navigator) {
-          navigator.serviceWorker.register('service-worker.js')
+            navigator.serviceWorker.register('service-worker.js')
             .then(function(registration) {
-              console.log('Service Worker registrado con éxito:', registration);
+                console.log('Service Worker registrado con éxito:', registration);
             })
             .catch(function(error) {
-              console.log('Error al registrar el Service Worker:', error);
+                console.log('Error al registrar el Service Worker:', error);
             });
         }
     </script>
