@@ -146,7 +146,7 @@ if (document.getElementById('routine-container')) {
         fetch("https://script.google.com/macros/s/AKfycbywGHo05PPEGAKRZPBV18u1vLrf6tcdLtYafhvw_tSktBaHExEjHyH2kUtgjL7gdNI0RA/exec?tipo=ejerciciosGif")
         .then(function(response) {
             if (!response.ok) throw new Error('Error en la respuesta del servidor');
-            return response.clone().json();  // 👈 Clonamos para evitar conflictos con otras lecturas
+            return response.clone().json();  //  Clonamos para evitar conflictos con otras lecturas
         })
         .then(function(data) {
             if (!Array.isArray(data)) throw new Error('La respuesta no es un array');
