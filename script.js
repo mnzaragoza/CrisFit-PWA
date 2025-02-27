@@ -143,7 +143,7 @@ if (document.getElementById('routine-container')) {
     document.getElementById("btnEjercicios").addEventListener("click", function() {
         const ejerciciosContainer = document.getElementById("ejerciciosContainer");
         ejerciciosContainer.innerHTML = "Cargando...";  // Mostrar mensaje mientras se cargan los datos
-        var url1 = `https://script.google.com/macros/s/AKfycbywGHo05PPEGAKRZPBV18u1vLrf6tcdLtYafhvw_tSktBaHExEjHyH2kUtgjL7gdNI0RA/exec?tipo=G`;
+        var url1 = `https://script.google.com/macros/s/AKfycbywGHo05PPEGAKRZPBV18u1vLrf6tcdLtYafhvw_tSktBaHExEjHyH2kUtgjL7gdNI0RA/exec?email=G`;
 
     // Hacer una solicitud HTTP GET a la URL
         fetch(url1)
