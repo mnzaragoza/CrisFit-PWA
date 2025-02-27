@@ -12,7 +12,21 @@
     <header>
         <h1>Bienvenido a tu Rutina, <span id="user-name"></span></h1>
     </header>
+    <button id="btnEjercicios">Como se hacen</button>
 
+    // Sección oculta que mostrará la lista de ejercicios
+    <div id="listaEjercicios" class="hidden">
+        <ul id="ejerciciosContainer"></ul>
+    </div>
+    
+    // Modal para mostrar el GIF
+    <div id="gifModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close" onclick="cerrarModal()">&times;</span>
+            <img id="gifEjercicio" src="" alt="Ejercicio GIF">
+        </div>
+    </div>
+    
     <div class="dashboard-container">
         <div id="routine-container">
             <!-- Las rutinas se cargarán aquí -->

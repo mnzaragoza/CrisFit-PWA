@@ -135,5 +135,32 @@ if (document.getElementById('routine-container')) {
         // Si no hay email guardado, redirigir a la página de inicio de sesión
         window.location.href = "index.html";
     }
+
+    document.getElementById("btnEjercicios").addEventListener("click", async function() {
+        const ejerciciosContainer = document.getElementById("ejerciciosContainer");
+        ejerciciosContainer.innerHTML = "Cargando...";
+        
+        const response = await fetch("https://script.google.com/macros/s/1Vr1VSYHE341RYA6ZSVDnC-5IZlLoEIaa-JNfx3W9Qog/exec?tipo=ejerciciosGif");
+        const data = await response.json();
+        
+        ejerciciosContainer.innerHTML = "";
+        data.forEach(ejercicio => {
+            let item = document.createElement("li");
+            item.textContent = ejercicio.nombre;
+            item.addEventListener("click", () => mostrarGif(ejercicio.gif));
+            ejerciciosContainer.appendChild(item);
+        });
+        
+        document.getElementById("listaEjercicios").classList.toggle("hidden");
+    });
+    
+    function mostrarGif(url) {
+        document.getElementById("gifEjercicio").src = url;
+        document.getElementById("gifModal").classList.remove("hidden");
+    }
+    
+    function cerrarModal() {
+        document.getElementById("gifModal").classList.add("hidden");
+    }
 }
 
