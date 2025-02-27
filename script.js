@@ -143,6 +143,7 @@ if (document.getElementById('routine-container')) {
         fetch(`https://script.google.com/macros/s/AKfycbywGHo05PPEGAKRZPBV18u1vLrf6tcdLtYafhvw_tSktBaHExEjHyH2kUtgjL7gdNI0RA/exec?tipo=ejerciciosGif`)
         .then(function(response) {
             console.log("que devuelve el servidor" + response.text());  // Verifica qué devuelve el servidor
+            console.log(response.json());
             return response.json();  // Obtener los datos en formato JSON
         })
         .then(function(data) {
