@@ -1,4 +1,4 @@
-// Registrar el Service Worker
+Registrar el Service Worker
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('service-worker.js')
     .then(function(reg) {
@@ -145,40 +145,36 @@ if (document.getElementById('routine-container')) {
         ejerciciosContainer.innerHTML = "Cargando...";  // Mostrar mensaje mientras se cargan los datos
         fetch(`https://script.google.com/macros/s/AKfycbywGHo05PPEGAKRZPBV18u1vLrf6tcdLtYafhvw_tSktBaHExEjHyH2kUtgjL7gdNI0RA/exec?tipo=ejerciciosGif`)
         .then(function(response) {
-            if (response.ok) {
-                return response.json();  // Convertir la respuesta a formato JSON
-            } else {
-                throw new Error('No se pudo cargar la respuesta');
-            }
+            console.log("que devuelve el servidor" + response.text());  // Verifica qué devuelve el servidor
+            return response.json();  // Obtener los datos en formato JSON
         })
         .then(function(data) {
-            console.log("Datos recibidos:", data);  // Mostrar los datos para depuración
-    
-            if (data && data.length > 0) {
-                // Aquí es donde procesas los datos, como crear los elementos de la lista
-                var ejerciciosContainer = document.getElementById("ejerciciosContainer");
-                ejerciciosContainer.innerHTML = "";  // Limpiar antes de agregar nuevos elementos
-    
-                // Crear los elementos para mostrar los ejercicios
-                data.forEach(function(ejercicio) {
-                    var item = document.createElement("li");
-                    item.textContent = ejercicio.nombre;
-    
-                    // Agregar el listener para mostrar el GIF cuando se hace clic en el ejercicio
-                    item.addEventListener("click", function() {
-                        mostrarGif(ejercicio.gif);  // Llamar a la función que muestra el GIF
-                    });
-    
-                    ejerciciosContainer.appendChild(item);
-                });
-            } else {
-                console.log("No hay datos de ejercicios disponibles.");
+
+            console.log("datos recibidos" + data);
+            ejerciciosContainer.innerHTML = "";  // Limpiar el contenedor
+
+            // Crear los elementos para mostrar los ejercicios
+            for (var i = 0; i < data.length; i++) {
+                var ejercicio = data[i];
+                var item = document.createElement("li");
+                item.textContent = ejercicio.nombre;  // Nombre del ejercicio
+
+                // Capturar el valor de 'ejercicio.gif' en el momento de la creación del listener
+                item.addEventListener("click", function(ejercicio) {
+                    return function() {
+                        mostrarGif(ejercicio.gif);  // Mostrar el GIF cuando se hace clic
+                    };
+                }(ejercicio)); // Pasar el valor de ejercicio al listener
+
+                ejerciciosContainer.appendChild(item);
             }
+
+            document.getElementById("listaEjercicios").classList.toggle("hidden");  // Mostrar la lista de ejercicios
         })
         .catch(function(error) {
-            console.log('Error al cargar los ejercicios:', error);  // Mostrar error en caso de fallo
+            console.log('Error al cargar los ejercicios:', error);
         });
-    
+    });
 
     // Función que muestra el GIF cuando se hace clic en un ejercicio
     function mostrarGif(url) {
