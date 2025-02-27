@@ -145,7 +145,6 @@ if (document.getElementById('routine-container')) {
         ejerciciosContainer.innerHTML = "Cargando...";  // Mostrar mensaje mientras se cargan los datos
         console.log(fetch("https://script.google.com/macros/s/AKfycbywGHo05PPEGAKRZPBV18u1vLrf6tcdLtYafhvw_tSktBaHExEjHyH2kUtgjL7gdNI0RA/exec?tipo=G"));
         fetch("https://script.google.com/macros/s/AKfycbywGHo05PPEGAKRZPBV18u1vLrf6tcdLtYafhvw_tSktBaHExEjHyH2kUtgjL7gdNI0RA/exec?tipo=G")
-        console.log("despues del fetch");
         .then(function(response) {
             console.log("entro al 1er then");
             if (!response.ok) throw new Error('Error en la respuesta del servidor');
