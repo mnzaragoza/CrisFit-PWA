@@ -74,7 +74,7 @@ function loadRoutine(email) {
 
 // Función para mostrar las rutinas en el HTML
 function displayRoutine(data) {
-    var routineContainer = document.getElementById('routine-container');
+    var routineContainer = document.getElementById('routine-content');
     routineContainer.innerHTML = '';
 
     if (!data.routine || data.routine.length === 0) {
@@ -103,11 +103,6 @@ function displayRoutine(data) {
     });
 }
 
-// Manejo del login cuando el usuario envía el formulario (solo en index.html)
-if (document.getElementById('login-form')) {
-    document.getElementById('login-form').addEventListener('submit', handleLogin);
-}
-
 // Manejo de la carga de rutinas en dashboard.html cuando la página se carga
 if (document.getElementById('routine-container')) {
     var email = localStorage.getItem('email');
@@ -129,40 +124,30 @@ if (document.getElementById('routine-container')) {
         fetch(url)
         .then(function(response) {
             if (response.ok) {
-                return response.json(); // Convertir la respuesta a formato JSON
+                return response.json(); // Convertir la respuesta en JSON
             } else {
-                throw new Error('Error en la respuesta del servidor'); // Si hay un error en la respuesta, lanzar una excepción
+                throw new Error('Error al cargar los ejercicios');
             }
         })
         .then(function(data) {
-            if (data !== undefined) {
-                ejerciciosContainer.innerHTML = "";  // Limpiar contenedor antes de agregar nuevos elementos
+            var ejerciciosContainer = document.getElementById("ejerciciosContainer");
+            ejerciciosContainer.classList.remove("hidden");
 
-                // Iterar sobre los ejercicios y filtrar los datos que quieres mostrar
-                data.routine.forEach(function(ejercicio) {
-                    var item = document.createElement("li");
-                    
-                    // Crear un enlace (anchor) con el nombre del ejercicio
-                    var gifLink = document.createElement("a");
-                    gifLink.href = "#";  // Evita el comportamiento por defecto del enlace
-                    gifLink.textContent = ejercicio.name;  // Mostrar solo el nombre del ejercicio
+            var listaEjercicios = document.getElementById("listaEjercicios");
+            listaEjercicios.innerHTML = "";
 
-                    // Al hacer clic en el enlace, se muestra el video de YouTube
-                    gifLink.addEventListener("click", function(event) {
-                        event.preventDefault();  // Prevenir la acción predeterminada del enlace (navegar a la URL)
-
-                        // Mostrar el video de YouTube
-                        mostrarVideo(ejercicio.repetitions);  // Suponemos que el campo 'repetitions' contiene el enlace de YouTube
-                    });
-
-                    // Agregar el enlace al item de la lista
-                    item.appendChild(gifLink);
-                    ejerciciosContainer.appendChild(item);
+            // Aquí se crea la lista de ejercicios y se agrega al DOM
+            data.forEach(function(exercicio) {
+                var listItem = document.createElement("li");
+                var anchor = document.createElement("a");
+                anchor.href = "#";
+                anchor.textContent = ejercicio.name;
+                anchor.addEventListener("click", function() {
+                    abrirModal(exercicio.video);
                 });
-
-                // Mostrar el contenedor de la lista
-                document.getElementById("listaEjercicios").classList.toggle("hidden");
-            }
+                listItem.appendChild(anchor);
+                listaEjercicios.appendChild(listItem);
+            });
         })
         .catch(function(error) {
             console.error('Error al cargar los ejercicios:', error);
@@ -170,22 +155,20 @@ if (document.getElementById('routine-container')) {
     });
 }
 
-// Función para mostrar el video de YouTube en el modal
-function mostrarVideo(url) {
-    var youtubeId = getYoutubeId(url);  // Extraer el ID de YouTube desde la URL
-    var embedUrl = `https://www.youtube.com/embed/${youtubeId}`;  // Crear el enlace de YouTube embed
-    document.getElementById("gifEjercicio").src = embedUrl;  // Establecer el src del iframe al enlace embed
-    document.getElementById("gifModal").classList.remove("hidden");  // Mostrar el modal con el video
+// Función para abrir el modal con el video
+function abrirModal(videoUrl) {
+    var gifModal = document.getElementById("gifModal");
+    var gifEjercicio = document.getElementById("gifEjercicio");
+
+    gifEjercicio.src = videoUrl;  // Establecer la URL del video en el iframe
+    gifModal.classList.remove("hidden");  // Mostrar el modal
 }
 
-// Función para obtener el ID de YouTube desde la URL
-function getYoutubeId(url) {
-    var match = url.match(/[?&]v=([^&]+)/);  // Buscar el parámetro v= en la URL
-    return match ? match[1] : null;  // Si se encuentra el ID, lo devuelve, si no, null
-}
-
-// Función para cerrar el gif/modal
+// Función para cerrar el modal
 function cerrarModal() {
-    document.getElementById("gifModal").classList.add("hidden");  // Ocultar el modal
-    document.getElementById("gifEjercicio").src = '';  // Limpiar el contenido (GIF o video)
+    var gifModal = document.getElementById("gifModal");
+    var gifEjercicio = document.getElementById("gifEjercicio");
+
+    gifEjercicio.src = "";  // Limpiar el src del iframe
+    gifModal.classList.add("hidden");  // Ocultar el modal
 }
