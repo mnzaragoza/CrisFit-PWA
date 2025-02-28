@@ -74,7 +74,7 @@ function loadRoutine(email) {
 
 // Función para mostrar las rutinas en el HTML
 function displayRoutine(data) {
-    var routineContainer = document.getElementById('routine-content');
+    var routineContainer = document.getElementById('routine-container');
     routineContainer.innerHTML = '';
 
     if (!data.routine || data.routine.length === 0) {
@@ -103,6 +103,11 @@ function displayRoutine(data) {
     });
 }
 
+// Manejo del login cuando el usuario envía el formulario (solo en index.html)
+if (document.getElementById('login-form')) {
+    document.getElementById('login-form').addEventListener('submit', handleLogin);
+}
+
 // Manejo de la carga de rutinas en dashboard.html cuando la página se carga
 if (document.getElementById('routine-container')) {
     var email = localStorage.getItem('email');
@@ -124,51 +129,35 @@ if (document.getElementById('routine-container')) {
         fetch(url)
         .then(function(response) {
             if (response.ok) {
-                return response.json(); // Convertir la respuesta en JSON
+                return response.json(); // Convertir la respuesta a formato JSON
             } else {
-                throw new Error('Error al cargar los ejercicios');
+                throw new Error('Error en la respuesta del servidor'); // Si hay un error en la respuesta, lanzar una excepción
             }
         })
         .then(function(data) {
-            var ejerciciosContainer = document.getElementById("ejerciciosContainer");
-            ejerciciosContainer.classList.remove("hidden");
+            if (data !== undefined) {
+                ejerciciosContainer.innerHTML = "";  // Limpiar contenedor antes de agregar nuevos elementos
 
-            var listaEjercicios = document.getElementById("listaEjercicios");
-            listaEjercicios.innerHTML = "";
+                // Iterar sobre los ejercicios y filtrar los datos que quieres mostrar
+                data.routine.forEach(function(ejercicio) {
+                    var item = document.createElement("li");
+                    
+                    // Crear un enlace (anchor) con el nombre del ejercicio
+                    var gifLink = document.createElement("a");
+                    gifLink.href = "#";  // Evita el comportamiento por defecto del enlace
+                    gifLink.textContent = ejercicio.name;  // Mostrar solo el nombre del ejercicio
 
-            // Aquí se crea la lista de ejercicios y se agrega al DOM
-            data.forEach(function(exercicio) {
-                var listItem = document.createElement("li");
-                var anchor = document.createElement("a");
-                anchor.href = "#";
-                anchor.textContent = ejercicio.name;
-                anchor.addEventListener("click", function() {
-                    abrirModal(exercicio.video);
+                    // Agregar el enlace al item de la lista
+                    item.appendChild(gifLink);
+                    ejerciciosContainer.appendChild(item);
                 });
-                listItem.appendChild(anchor);
-                listaEjercicios.appendChild(listItem);
-            });
+
+                // Mostrar el contenedor de la lista
+                document.getElementById("listaEjercicios").classList.toggle("hidden");
+            }
         })
         .catch(function(error) {
             console.error('Error al cargar los ejercicios:', error);
         });
     });
-}
-
-// Función para abrir el modal con el video
-function abrirModal(videoUrl) {
-    var gifModal = document.getElementById("gifModal");
-    var gifEjercicio = document.getElementById("gifEjercicio");
-
-    gifEjercicio.src = videoUrl;  // Establecer la URL del video en el iframe
-    gifModal.classList.remove("hidden");  // Mostrar el modal
-}
-
-// Función para cerrar el modal
-function cerrarModal() {
-    var gifModal = document.getElementById("gifModal");
-    var gifEjercicio = document.getElementById("gifEjercicio");
-
-    gifEjercicio.src = "";  // Limpiar el src del iframe
-    gifModal.classList.add("hidden");  // Ocultar el modal
 }
