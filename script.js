@@ -147,18 +147,12 @@ if (document.getElementById('routine-container')) {
                     gifLink.href = "#";  // Evita el comportamiento por defecto del enlace
                     gifLink.textContent = ejercicio.name;  // Mostrar solo el nombre del ejercicio
 
-                    // Al hacer clic en el enlace, se muestra el video (puede ser un GIF o YouTube)
+                    // Al hacer clic en el enlace, se muestra el video de YouTube
                     gifLink.addEventListener("click", function(event) {
                         event.preventDefault();  // Prevenir la acción predeterminada del enlace (navegar a la URL)
-                        
-                        // Verificar si el enlace es de YouTube o un GIF
-                        if (isYoutubeUrl(ejercicio.repetitions)) {
-                            // Si es un enlace de YouTube, mostrarlo en el modal
-                            mostrarVideo(ejercicio.repetitions);
-                        } else {
-                            // Si no, es un GIF, mostrarlo en el modal
-                            mostrarGif(ejercicio.repetitions);
-                        }
+
+                        // Mostrar el video de YouTube
+                        mostrarVideo(ejercicio.repetitions);  // Suponemos que el campo 'repetitions' contiene el enlace de YouTube
                     });
 
                     // Agregar el enlace al item de la lista
@@ -174,17 +168,6 @@ if (document.getElementById('routine-container')) {
             console.error('Error al cargar los ejercicios:', error);
         });
     });
-}
-
-// Función para verificar si la URL es de YouTube
-function isYoutubeUrl(url) {
-    return url.includes("youtube.com/watch") || url.includes("youtu.be");
-}
-
-// Función para mostrar el GIF en el modal
-function mostrarGif(url) {
-    document.getElementById("gifEjercicio").src = url;  // Establecer la URL del GIF en el src
-    document.getElementById("gifModal").classList.remove("hidden");  // Mostrar el modal con el GIF
 }
 
 // Función para mostrar el video de YouTube en el modal
@@ -206,5 +189,3 @@ function cerrarModal() {
     document.getElementById("gifModal").classList.add("hidden");  // Ocultar el modal
     document.getElementById("gifEjercicio").src = '';  // Limpiar el contenido (GIF o video)
 }
-
-  

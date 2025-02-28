@@ -3,48 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CrisFit - Dashboard</title>
+    <title>Dashboard - CrisFit</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="manifest" href="manifest.json">
 </head>
 <body>
-    <header>
-        <h1>Bienvenido a tu Rutina, <span id="user-name"></span></h1>
-    </header>
-    
-    <!-- Botón 'Como se hacen' -->
-    <div class="btn-container">
-        <button id="btnEjercicios">Como se hacen</button>
-    </div>
+    <!-- Contenedor principal -->
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>CrisFit Dashboard</h1>
+        </header>
 
-    <!-- Sección para los ejercicios -->
-    <div id="listaEjercicios" class="hidden">
-        <div class="exercise-list-container">
-            <ul id="ejerciciosContainer"></ul>
+        <!-- Bienvenida y Logout -->
+        <div class="welcome-section">
+            <p>Bienvenido, <span id="user-name">Usuario</span></p>
+            <button id="logout-btn">Cerrar sesión</button>
         </div>
-    </div>
-    
-      <!-- Modal para mostrar el GIF o video -->
-      <div class="exercise-item" data-url="https://www.youtube.com/watch?v=dQw4w9WgXcQ"></div>
 
-    <div class="dashboard-container">
+        <!-- Sección de rutinas -->
         <div id="routine-container">
-            <!-- Las rutinas se cargarán aquí -->
+            <h2>Rutina de Ejercicios</h2>
+            <div id="routine-content">
+                <!-- Aquí se cargarán las rutinas dinámicamente -->
+            </div>
         </div>
-        <a href="index.html" class="logout-btn">Cerrar sesión</a>
+
+        <!-- Botón para ver ejercicios -->
+        <div class="buttons-section">
+            <button id="btnEjercicios">Como se hacen</button>
+        </div>
+
+        <!-- Contenedor para los ejercicios -->
+        <div id="ejerciciosContainer" class="hidden">
+            <h3>Lista de Ejercicios</h3>
+            <ul id="listaEjercicios">
+                <!-- Aquí se cargarán los ejercicios dinámicamente -->
+            </ul>
+        </div>
+
+        <!-- Modal para mostrar el video o GIF -->
+        <div id="gifModal" class="hidden">
+            <div class="modal-content">
+                <iframe id="gifEjercicio" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                <button onclick="cerrarModal()" id="cerrarModalBtn">Cerrar</button>
+            </div>
+        </div>
     </div>
 
     <script src="script.js"></script>
-    <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('service-worker.js')
-            .then(function(registration) {
-                console.log('Service Worker registrado con éxito:', registration);
-            })
-            .catch(function(error) {
-                console.log('Error al registrar el Service Worker:', error);
-            });
-        }
-    </script>
 </body>
 </html>
