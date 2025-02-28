@@ -1,119 +1,195 @@
-/* Reset básico */
-* {
+/* Estilos Generales */
+body {
+    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    background-color: #f4f6f9; /* Fondo gris suave */
+    color: #333; /* Gris oscuro para el texto */
+    line-height: 1.6;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f4f4f9;
-    color: #333;
-}
-
-.container {
-    width: 100%;
-    max-width: 900px;
-    padding: 20px;
+header {
+    background-color: #1E2A47; /* Azul oscuro */
+    color: #fff; /* Texto blanco */
+    padding: 80px 0 50px; /* Espaciado superior más grande */
     text-align: center;
+    border-bottom: 3px solid #3498db; /* Línea azul abajo */
 }
 
 header h1 {
-    font-size: 2em;
-    margin-bottom: 20px;
+    font-size: 3.5em;
+    margin: 0;
+    font-weight: 600;
+    text-transform: uppercase;
 }
 
-.welcome-section {
-    margin-bottom: 30px;
+/* Contenedor del Login */
+.login-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Sombra sutil */
 }
 
-button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    margin-top: 10px;
+#login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-button:hover {
-    background-color: #45a049;
-}
-
-#routine-container {
-    margin-bottom: 30px;
-}
-
-#ejerciciosContainer {
-    margin-top: 20px;
-    text-align: left;
-}
-
-#listaEjercicios {
-    list-style-type: none;
-    padding: 0;
-}
-
-#listaEjercicios li {
+#login-form label {
+    font-size: 1.2em;
     margin-bottom: 10px;
 }
 
-#listaEjercicios a {
-    text-decoration: none;
-    color: #333;
-    font-size: 1.1em;
-}
-
-#listaEjercicios a:hover {
-    color: #4CAF50;
-}
-
-.hidden {
-    display: none;
-}
-
-/* Modal */
-#gifModal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
+#login-form input {
     width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-.modal-content {
-    background-color: white;
-    padding: 20px;
+    padding: 12px;
+    margin: 10px 0;
     border-radius: 8px;
-    width: 80%;
-    max-width: 800px;
+    border: 1px solid #bdc3c7;
+    font-size: 1em;
+}
+
+#login-form input:focus {
+    border: 1px solid #3498db;
+}
+
+button[type="submit"] {
+    padding: 12px 25px;
+    border-radius: 30px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 1.1em;
+    box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+    transition: all 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #2980b9;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(52, 152, 219, 0.5);
+}
+
+/* boton desplegable ejercicios*/
+.hidden { display: none; }
+.modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; }
+.modal-content { background: white; padding: 20px; border-radius: 10px; }
+.close { position: absolute; top: 10px; right: 10px; cursor: pointer; font-size: 24px; }
+
+/* Contenedor del Dashboard */
+.dashboard-container {
+    margin-top: 40px;
     text-align: center;
+    padding: 20px;
 }
 
-#gifEjercicio {
-    width: 100%;
-    height: 400px;
+#routine-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 30px;
+    padding: 0 30px;
 }
 
-#cerrarModalBtn {
-    margin-top: 15px;
-    background-color: red;
-    border-radius: 5px;
-    padding: 10px 20px;
+.exercise-item {
+    background-color: #f0f0f0; /* Gris clarito */
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
     cursor: pointer;
 }
 
-#cerrarModalBtn:hover {
-    background-color: darkred;
+.exercise-item:hover {
+    background-color: #e0e0e0;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.exercise-item h3 {
+    font-size: 1.5em;
+    margin: 0;
+    color: #1E2A47;
+}
+
+.exercise-item p {
+    font-size: 1.2em;
+    color: #7f8c8d;
+}
+
+/* Botón de Cerrar Sesión */
+a.logout-btn {
+    display: inline-block;
+    background-color: #3498db;
+    color: #fff;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-size: 1.1em;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+    margin-top: 20px;
+}
+
+a.logout-btn:hover {
+    background-color: #2980b9;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(52, 152, 219, 0.5);
+}
+
+/* Botón Como se hacen */
+#show-how-btn {
+    margin-top: 30px;
+    padding: 12px 25px;
+    border-radius: 30px;
+    background-color: #e74c3c; /* Mismo color que cerrar */
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1em;
+    text-transform: uppercase;
+    box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3);
+}
+
+#show-how-btn:hover {
+    background-color: #c0392b;
+}
+
+/* Contenedor de Ejercicios */
+#exercise-container {
+    margin-top: 30px;
+    display: none;
+}
+
+/* Espacio del video oculto hasta que se haga click */
+#video-container {
+    display: none;
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2.5em;
+    }
+
+    .login-container {
+        width: 90%;
+        padding: 20px;
+    }
+
+    #routine-container {
+        grid-template-columns: 1fr;
+        padding: 0 10px;
+    }
 }
