@@ -133,7 +133,6 @@ document.getElementById("btnEjercicios").addEventListener("click", function() {
 
                 // Crear un enlace (anchor) con el nombre del ejercicio
                 var gifLink = document.createElement("a");
-                gifLink.href = "#";  // Evita el comportamiento por defecto del enlace
                 gifLink.textContent = ejercicio.name;  // Mostrar solo el nombre del ejercicio
 
                 // Agregar el enlace al item de la lista
@@ -141,7 +140,8 @@ document.getElementById("btnEjercicios").addEventListener("click", function() {
                 ejerciciosContainer.appendChild(item);
 
                 // Agregar el evento para cargar el video al hacer click en el ejercicio
-                gifLink.addEventListener("click", function() {
+                gifLink.addEventListener("click", function(event) {
+                    event.preventDefault();  // Evitar el comportamiento por defecto del enlace
                     var videoUrl = ejercicio.repetitions; // Aquí es donde se obtiene el enlace al video
                     mostrarVideo(videoUrl); // Llamar a la función para mostrar el video
                 });
@@ -155,7 +155,6 @@ document.getElementById("btnEjercicios").addEventListener("click", function() {
         console.error('Error al cargar los ejercicios:', error);
     });
 });
-
 // Función para mostrar el video
 function mostrarVideo(url) {
     var videoContainer = document.getElementById("videoContainer");
