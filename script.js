@@ -107,7 +107,7 @@
         }
     }
     
-    // Cargar los ejercicios al hacer clic en "Como se hacen"
+// Cargar los ejercicios al hacer clic en "Como se hacen"
 document.getElementById("btnEjercicios").addEventListener("click", function() {
     const ejerciciosContainer = document.getElementById("ejerciciosContainer");
     ejerciciosContainer.innerHTML = "Cargando...";  // Mostrar mensaje mientras se cargan los datos
@@ -130,22 +130,21 @@ document.getElementById("btnEjercicios").addEventListener("click", function() {
             // Iterar sobre los ejercicios y filtrar los datos que quieres mostrar
             data.routine.forEach(function(ejercicio) {
                 var item = document.createElement("li");
-                
+
                 // Crear un enlace (anchor) con el nombre del ejercicio
                 var gifLink = document.createElement("a");
                 gifLink.href = "#";  // Evita el comportamiento por defecto del enlace
                 gifLink.textContent = ejercicio.name;  // Mostrar solo el nombre del ejercicio
 
-                // Agregar el evento de clic al enlace
-                gifLink.addEventListener("click", function() {
-                    // Obtener la URL del video desde los datos
-                    var videoUrl = ejercicio.repetitions; // Aquí es donde se obtiene el enlace al video
-                    renderVideo(videoUrl); // Llamar a la función para mostrar el video
-                });
-
                 // Agregar el enlace al item de la lista
                 item.appendChild(gifLink);
                 ejerciciosContainer.appendChild(item);
+
+                // Agregar el evento para cargar el video al hacer click en el ejercicio
+                gifLink.addEventListener("click", function() {
+                    var videoUrl = ejercicio.repetitions; // Aquí es donde se obtiene el enlace al video
+                    mostrarVideo(videoUrl); // Llamar a la función para mostrar el video
+                });
             });
 
             // Mostrar el contenedor de la lista
@@ -157,9 +156,10 @@ document.getElementById("btnEjercicios").addEventListener("click", function() {
     });
 });
 
-// Función para renderizar el video
-function renderVideo(url) {
+// Función para mostrar el video
+function mostrarVideo(url) {
     var videoContainer = document.getElementById("videoContainer");
+
     if (!videoContainer) {
         // Crear contenedor si no existe
         videoContainer = document.createElement("div");
@@ -179,5 +179,5 @@ function renderVideo(url) {
     // Agregar evento al botón cerrar
     document.getElementById("closeButton").addEventListener("click", function() {
         videoContainer.style.display = "none";  // Ocultar el contenedor de video
-    });
+    }, { passive: true });
 }
