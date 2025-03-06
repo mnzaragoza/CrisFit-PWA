@@ -107,7 +107,7 @@
         }
     }
     
-// Cargar los ejercicios al hacer clic en "Como se hacen"
+// Cargar los ejercicios al hacer click en "Como se hacen" 
 document.getElementById("btnEjercicios").addEventListener("click", function() {
     const ejerciciosContainer = document.getElementById("ejerciciosContainer");
     ejerciciosContainer.innerHTML = "Cargando...";  // Mostrar mensaje mientras se cargan los datos
