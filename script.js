@@ -130,20 +130,23 @@ document.getElementById("btnEjercicios").addEventListener("click", function() {
             // Iterar sobre los ejercicios y filtrar los datos que quieres mostrar
             data.routine.forEach(function(ejercicio) {
                 var item = document.createElement("li");
-
+                
                 // Crear un enlace (anchor) con el nombre del ejercicio
                 var gifLink = document.createElement("a");
+                gifLink.href = "#";  // Evita el comportamiento por defecto del enlace
                 gifLink.textContent = ejercicio.name;  // Mostrar solo el nombre del ejercicio
+
+                // Aquí se extrae la URL del campo "repetitions" (que es donde está la URL del video en tu JSON)
+                gifLink.setAttribute("data-video", ejercicio.repetitions); // Usamos "repetitions" como campo de la URL del video
 
                 // Agregar el enlace al item de la lista
                 item.appendChild(gifLink);
                 ejerciciosContainer.appendChild(item);
 
-                // Agregar el evento para cargar el video al hacer click en el ejercicio
+                // Agregar un evento al hacer clic para mostrar el video
                 gifLink.addEventListener("click", function(event) {
-                    event.preventDefault();  // Evitar el comportamiento por defecto del enlace
-                    var videoUrl = ejercicio.repetitions; // Aquí es donde se obtiene el enlace al video
-                    mostrarVideo(videoUrl); // Llamar a la función para mostrar el video
+                    event.preventDefault();  // Evitar que se siga el enlace
+                    mostrarVideo(gifLink.getAttribute("data-video"));  // Mostrar el video con la URL extraída
                 });
             });
 
@@ -155,28 +158,25 @@ document.getElementById("btnEjercicios").addEventListener("click", function() {
         console.error('Error al cargar los ejercicios:', error);
     });
 });
-// Función para mostrar el video
+
+// Función para mostrar el video en un contenedor modal
 function mostrarVideo(url) {
-    var videoContainer = document.getElementById("videoContainer");
+    var videoModal = document.getElementById("videoModal");
+    var videoIframe = document.getElementById("videoIframe");
 
-    if (!videoContainer) {
-        // Crear contenedor si no existe
-        videoContainer = document.createElement("div");
-        videoContainer.id = "videoContainer";
-        document.body.appendChild(videoContainer);
-    }
+    // Verificamos que la URL está correctamente recibida
+    console.log('URL del video:', url); // Esto debería mostrar la URL del video en la consola para asegurarnos de que la URL es la correcta
 
-    // Mostrar el contenedor de video
-    videoContainer.innerHTML = `
-        <iframe width="560" height="315" src="${url}" frameborder="0" allowfullscreen></iframe>
-        <button id="closeButton">Cerrar</button>
-    `;
+    // Muestra el modal y asigna la URL del video
+    videoModal.style.display = 'block';
+    videoIframe.src = url;  // Asigna la URL del video de YouTube
 
-    // Mostrar el contenedor de video
-    videoContainer.style.display = "block";
-
-    // Agregar evento al botón cerrar
-    document.getElementById("closeButton").addEventListener("click", function() {
-        videoContainer.style.display = "none";  // Ocultar el contenedor de video
-    }, { passive: true });
+    // Mostrar el botón de cerrar
+    var closeBtn = document.getElementById("closeVideoBtn");
+    closeBtn.addEventListener("click", function() {
+        videoModal.style.display = 'none';  // Ocultar el modal
+        videoIframe.src = '';  // Detener el video
+    });
 }
+
+
