@@ -1,4 +1,14 @@
-    // Función para manejar el formulario de login
+// Registrar el Service Worker
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('service-worker.js')
+      .then(function(registration) {
+        console.log('Service Worker registrado con éxito:', registration);
+      })
+      .catch(function(error) {
+        console.log('Error al registrar el Service Worker:', error);
+      });
+  }
+// Función para manejar el formulario de login
     function handleLogin(event) {
         event.preventDefault(); // Evita que el formulario recargue la página al enviarse
 
