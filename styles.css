@@ -90,6 +90,7 @@ button[type="submit"]:hover {
     box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
     transition: all 0.3s ease;
     margin-top: 20px;
+    margin-left: 20px; /* Separación del margen izquierdo */
 }
 
 #btnEjercicios:hover {
@@ -195,6 +196,7 @@ button[type="submit"]:hover {
     transition: all 0.3s ease;
     cursor: pointer;
     text-align: center;
+    margin: 10px; /* Espacio entre ejercicios */
 }
 
 #ejerciciosContainer li:hover {
